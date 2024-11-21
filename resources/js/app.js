@@ -1,7 +1,8 @@
-import { createApp, defineAsyncComponent } from 'vue';
+import './bootstrap';
+import {createApp, defineAsyncComponent} from "vue";
+import IncrementCounter from './components/ExampleComponent.vue';
 
-require('./bootstrap');
-
-createApp({})
-  .component('example-component', defineAsyncComponent(() => import('./components/example-component')))
-  .mount('#app');
+createApp({}).component(
+    'example-component',
+    IncrementCounter
+).mount('#app');
