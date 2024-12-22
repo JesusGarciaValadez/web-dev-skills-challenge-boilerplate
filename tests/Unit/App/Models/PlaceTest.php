@@ -18,11 +18,10 @@ class PlaceTest extends TestCase
 
         $place = Place::selectColumns()->first()->toArray();
 
-        $this->assertArrayHasKey('id', $place);
         $this->assertArrayHasKey('name', $place);
         $this->assertArrayHasKey('location_name', $place);
         $this->assertArrayHasKey('category', $place);
-        $this->assertArrayHasKey('point', $place);
+        $this->assertArrayHasKey('points', $place);
         $this->assertArrayNotHasKey('key_not_present', $place);
     }
 

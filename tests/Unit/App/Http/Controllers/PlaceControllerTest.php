@@ -56,7 +56,7 @@ class PlaceControllerTest extends TestCase
                 'name' => 'Test Place',
                 'location_name' => 'Test Location',
                 'category' => 'Test Category',
-                'point' => '{"type":"Point","coordinates":{"lat":1,"lon":1},"place_id":"test-id"}'
+                'points' => '{"type":"Point","coordinates":{"lat":1,"lon":1},"place_id":"test-id"}'
             ])
         ]);
 
@@ -86,7 +86,7 @@ class PlaceControllerTest extends TestCase
             'name' => 'Test Place',
             'location_name' => 'Test Location',
             'category' => 'Test Category',
-            'point' => '{"type":"Point","coordinates":{"lat":1,"lon":1},"place_id":"test-id"}'
+            'points' => '{"type":"Point","coordinates":{"lat":1,"lon":1},"place_id":"test-id"}'
         ]);
         $place->exists = true;
 
@@ -102,7 +102,7 @@ class PlaceControllerTest extends TestCase
             'name' => 'Test Place',
             'location_name' => 'Test Location',
             'category' => 'Test Category',
-            'point' => json_encode([
+            'points' => json_encode([
                 'type' => 'Point',
                 'coordinates' => [
                     'lat' => 1,
@@ -135,7 +135,7 @@ class PlaceControllerTest extends TestCase
             'name' => 'Test Place',
             'location_name' => 'Test Location',
             'category' => 'Test Category',
-            'point' => '{"type":"Point","coordinates":{"lat":1,"lon":1},"place_id":"test-id"}'
+            'points' => '{"type":"Point","coordinates":{"lat":1,"lon":1},"place_id":"test-id"}'
         ]);
         $place->exists = false;
 
@@ -151,7 +151,7 @@ class PlaceControllerTest extends TestCase
             'name' => 'Test Place',
             'location_name' => 'Test Location',
             'category' => 'Test Category',
-            'point' => json_encode([
+            'points' => json_encode([
                 'type' => 'Point',
                 'coordinates' => [
                     'lat' => 1,
@@ -184,7 +184,7 @@ class PlaceControllerTest extends TestCase
             'name' => 'Test Place',
             'location_name' => 'Test Location',
             'category' => 'Test Category',
-            'point' => '{"type":"Point","coordinates":{"lat":1,"lon":1},"place_id":"test-id"}'
+            'points' => '{"type":"Point","coordinates":{"lat":1,"lon":1},"place_id":"test-id"}'
         ]);
 
         $placeService = $this->getMockBuilder(PlaceService::class)
@@ -206,7 +206,7 @@ class PlaceControllerTest extends TestCase
             'name' => 'Test Place',
             'location_name' => 'Test Location',
             'category' => 'Test Category',
-            'point' => '{"type":"Point","coordinates":{"lat":1,"lon":1},"place_id":"test-id"}'
+            'points' => '{"type":"Point","coordinates":{"lat":1,"lon":1},"place_id":"test-id"}'
         ]);
 
         // Create a mock Place that will represent the updated entity
@@ -215,7 +215,7 @@ class PlaceControllerTest extends TestCase
             'name' => 'Test Place',
             'location_name' => 'Test Location',
             'category' => 'Test Category',
-            'point' => '{"type":"Point","coordinates":{"lat":1,"lon":1},"place_id":"test-id"}'
+            'points' => '{"type":"Point","coordinates":{"lat":1,"lon":1},"place_id":"test-id"}'
         ]);
 
         // Mark these as the original values
@@ -226,7 +226,7 @@ class PlaceControllerTest extends TestCase
             'name' => 'Different Name',
             'location_name' => 'Different Location',
             'category' => 'Different Category',
-            'point' => '{"type":"Point","coordinates":{"lat":2,"lon":2},"place_id":"new-test-id"}'
+            'points' => '{"type":"Point","coordinates":{"lat":2,"lon":2},"place_id":"new-test-id"}'
         ]);
 
         // This synchronizes the changes to make wasChanged returns true
@@ -247,7 +247,7 @@ class PlaceControllerTest extends TestCase
             'name' => 'Different Name',
             'location_name' => 'Different Location',
             'category' => 'Different Category',
-            'point' => json_encode([
+            'points' => json_encode([
                 'type' => 'Point',
                 'coordinates' => [
                     'lat' => 2,
@@ -279,7 +279,7 @@ class PlaceControllerTest extends TestCase
             'name' => 'Test Place',
             'location_name' => 'Test Location',
             'category' => 'Test Category',
-            'point' => '{"type":"Point","coordinates":{"lat":1,"lon":1},"place_id":"test-id"}'
+            'points' => '{"type":"Point","coordinates":{"lat":1,"lon":1},"place_id":"test-id"}'
         ]);
 
         $placeService = $this->getMockBuilder(PlaceService::class)

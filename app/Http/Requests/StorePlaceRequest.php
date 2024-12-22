@@ -25,7 +25,7 @@ class StorePlaceRequest extends FormRequest
             'name' => ['required', 'string'],
             'location_name' => ['required', 'string'],
             'category' => ['required', 'string'],
-            'point' => ['required', 'json'],
+            'points' => ['required', 'json'],
         ];
     }
 }

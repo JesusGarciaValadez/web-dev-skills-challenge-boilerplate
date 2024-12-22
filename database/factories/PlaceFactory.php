@@ -15,7 +15,7 @@ class PlaceFactory extends Factory
             'name' => $this->faker->name(),
             'location_name' => $this->faker->name(),
             'category' => $this->faker->name(),
-            'point' => [
+            'points' => [
                 'type' => 'Point',
                 'coordinates' => [
                     'lat' => $this->faker->latitude(),

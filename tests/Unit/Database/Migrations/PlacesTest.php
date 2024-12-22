@@ -23,7 +23,7 @@ class PlacesTest extends TestCase
             'name' => 'Test Place',
             'location_name' => 'Test Location',
             'category' => 'Test Category',
-            'point' => [
+            'points' => [
                 'type' => 'Point',
                 'coordinates' => [
                     'lat' => 1,
@@ -37,7 +37,7 @@ class PlacesTest extends TestCase
             'name' => 'Test Place',
             'location_name' => 'Test Location',
             'category' => 'Test Category',
-            'point' => json_encode([
+            'points' => json_encode([
                 'type' => 'Point',
                 'coordinates' => [
                     'lat' => 1,
@@ -57,7 +57,7 @@ class PlacesTest extends TestCase
             'name' => 'Test Place',
             'location_name' => 'Test Location',
             'category' => 'Test Category',
-            'point' => [
+            'points' => [
                 'type' => 'Point',
                 'coordinates' => [
                     'lat' => 1,

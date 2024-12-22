@@ -1,8 +1,13 @@
 import './bootstrap';
-import {createApp, defineAsyncComponent} from "vue";
-import IncrementCounter from './components/ExampleComponent.vue';
+import { createApp } from 'vue'
+import App from './components/App.vue'
 
-createApp({}).component(
-    'example-component',
-    IncrementCounter
-).mount('#app');
+const app = createApp(App)
+app.mount('#app')
+
+// Add a class to body when Vue is mounted
+app.mixin({
+    mounted() {
+        document.body.classList.add('vue-mounted')
+    }
+})

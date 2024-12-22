@@ -49,7 +49,7 @@ class PlaceServiceTest extends TestCase
             'name' => 'Test Place',
             'location_name' => 'Test Location',
             'category' => 'Test Category',
-            'point' => [
+            'points' => [
                 'type' => 'Point',
                 'coordinates' => [
                     'lat' => 2,
@@ -63,7 +63,7 @@ class PlaceServiceTest extends TestCase
             'name' => 'Test Place',
             'location_name' => 'Test Location',
             'category' => 'Test Category',
-            'point' => json_encode([
+            'points' => json_encode([
                 'type' => 'Point',
                 'coordinates' => [
                     'lat' => 2,
@@ -83,7 +83,7 @@ class PlaceServiceTest extends TestCase
             'name' => 'Updated Place',
             'location_name' => 'Updated Location',
             'category' => 'Updated Category',
-            'point' => [
+            'points' => [
                 'type' => 'Point',
                 'coordinates' => [
                     'lat' => 2,
@@ -97,7 +97,7 @@ class PlaceServiceTest extends TestCase
             'name' => 'Updated Place',
             'location_name' => 'Updated Location',
             'category' => 'Updated Category',
-            'point' => json_encode([
+            'points' => json_encode([
                 'type' => 'Point',
                 'coordinates' => [
                     'lat' => 2,

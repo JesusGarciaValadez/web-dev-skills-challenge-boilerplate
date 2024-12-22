@@ -12,18 +12,18 @@ class Place extends Model
 
     protected $table = 'places';
 
-    protected $fillable = ['name', 'location_name', 'category', 'point'];
+    protected $fillable = ['name', 'location_name', 'category', 'points'];
 
     public $timestamps = false;
 
-    public $casts = ['point' => 'array'];
+    public $casts = ['points' => 'array'];
 
     /**
      * Scope a query to select columns.
      */
     public function scopeSelectColumns(Builder $query): void
     {
-        $query->select(['id', 'name', 'location_name', 'category', 'point']);
+        $query->select(['id', 'name', 'location_name', 'category', 'points']);
     }
 
     /**

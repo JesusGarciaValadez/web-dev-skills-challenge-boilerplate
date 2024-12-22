@@ -35,3 +35,15 @@ Create [personal access token](https://docs.github.com/en/github/authenticating-
 - [Vue](https://v3.vuejs.org/guide/introduction.html)
 - [Tailwind](https://tailwindcss.com/docs)
 - [Mapbox GL JS](https://docs.mapbox.com/mapbox-gl-js/api/)
+
+## Unit testing
+To run tests:
+```
+./vendor/bin/sail test
+```
+
+## Browser testing
+To run tests:
+```
+php artisan dusk --browse
+```
