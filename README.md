@@ -43,7 +43,15 @@ To run tests:
 ```
 
 ## Browser testing
+For first time setup:
+```
+php artisan dusk:install
+```
+
 To run tests:
 ```
 php artisan dusk --browse
 ```
+
+## Troubleshooting
+- If you encounter an error with the `php artisan dusk --browse` command, try running `./vendor/bin/sail dusk:install` first, and then run `php artisan dusk --browse` again.
