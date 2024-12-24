@@ -3,65 +3,65 @@
 namespace App\Http\Services;
 
 use App\Models\Place;
+use App\Http\Repositories\PlaceRepositoryInterface;
 use Exception;
 use Illuminate\Database\Eloquent\Collection;
-use Throwable;
+use RuntimeException;
 
 class PlaceService
 {
+    private PlaceRepositoryInterface $placeRepository;
+
+    public function __construct(PlaceRepositoryInterface $placeRepository)
+    {
+        $this->placeRepository = $placeRepository;
+    }
+
     /**
-     * @throws Exception
+     * @throws RuntimeException
      */
     public function all(): Collection
     {
         try {
-            return Place::selectColumns()->orderById()->get();
+            return $this->placeRepository->all();
         } catch (Exception $e) {
-            throw new \RuntimeException($e->getMessage());
+            throw new RuntimeException($e->getMessage());
         }
     }
 
     /**
-     * @throws Throwable
+     * @throws RuntimeException
      */
     public function save(array $data): Place
     {
-        $place = null;
-
         try {
-            $place = Place::create($data);
+            return $this->placeRepository->save($data);
         } catch (Exception $e) {
-            throw new \RuntimeException($e->getMessage());
+            throw new RuntimeException($e->getMessage());
         }
-
-        throw_unless($place->exists, new \RuntimeException('Place not saved'));
-
-        return $place;
     }
 
+    /**
+     * @throws RuntimeException
+     */
     public function update(array $data, Place $place): Place
     {
         try {
-            $place->update($data);
-
-            throw_unless($place->wasChanged(), new \RuntimeException('Place not updated'));
+            return $this->placeRepository->update($data, $place);
         } catch (Exception $e) {
-            throw new \RuntimeException($e->getMessage());
-        } catch (Throwable $e) {
-            throw new \RuntimeException($e->getMessage());
+            throw new RuntimeException($e->getMessage());
         }
-
-        return $place;
     }
 
+    /**
+     * @throws RuntimeException
+     */
     public function delete(Place $place): Place
     {
         try {
-            $place->delete();
+            return $this->placeRepository->delete($place);
         } catch (Exception $e) {
-            throw new \RuntimeException($e->getMessage());
+            throw new RuntimeException($e->getMessage());
         }
-
-        return $place;
     }
 }
