@@ -22,7 +22,7 @@ class PlaceController extends Controller
     {
         $places = $this->placeService->all();
 
-        return response()->json($places, $places->isEmpty() ? 204 : 200);
+        return response()->json($places);
     }
 
     /**

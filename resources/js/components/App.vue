@@ -64,7 +64,9 @@ const settingPlaces = (place: Place) => ({
 
 onMounted(async () => {
     geocodingResponse.value = await useApi('/api/places', 'GET')
-    pointsOfInterest.value = geocodingResponse.value.map(settingPlaces)
+    if (Array.isArray(geocodingResponse.value)) {
+        pointsOfInterest.value = geocodingResponse.value.map(settingPlaces)
+    }
 })
 
 function onSearch(results: Place[]) {

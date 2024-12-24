@@ -51,10 +51,19 @@ const useGeocoding = async (place: string) => {
 }
 
 const usePlaces = async (place_id: string) => {
-    const response = await fetch(
-        `https://api.geoapify.com/v2/places?categories=${allCategories}&filter=place:${place_id}&limit=100&apiKey=${API_KEY}`,
-    )
-    return await response.json()
+    if (!place_id) {
+        return []
+    }
+
+    try {
+        const response = await fetch(
+            `https://api.geoapify.com/v2/places?categories=${allCategories}&filter=place:${place_id}&limit=100&apiKey=${API_KEY}`,
+        )
+
+        return await response.json()
+    } catch (error) {
+        console.error('Error fetching places: ', error)
+    }
 }
 
 export { useGeocoding, usePlaces };

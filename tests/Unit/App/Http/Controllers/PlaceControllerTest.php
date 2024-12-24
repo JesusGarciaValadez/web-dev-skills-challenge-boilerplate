@@ -31,7 +31,7 @@ class PlaceControllerTest extends TestCase
     }
 
     #[Test]
-    public function it_can_return_204_status_if_there_is_no_places(): void
+    public function it_can_return_200_status_if_there_is_no_places(): void
     {
         $placeService = $this->getMockBuilder(PlaceService::class)
             ->disableOriginalConstructor()
@@ -45,7 +45,7 @@ class PlaceControllerTest extends TestCase
 
         $response = $placeController->index();
 
-        $this->assertEquals(204, $response->getStatusCode());
+        $this->assertEquals(200, $response->getStatusCode());
     }
 
     #[Test]
