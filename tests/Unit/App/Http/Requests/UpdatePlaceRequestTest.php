@@ -4,18 +4,17 @@ namespace Tests\Unit\App\Http\Requests;
 
 use App\Http\Requests\UpdatePlaceRequest;
 use Illuminate\Support\Facades\Validator;
-use Tests\TestCase;
-use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Test;
+use Tests\TestCase;
 
 class UpdatePlaceRequestTest extends TestCase
 {
     private UpdatePlaceRequest $request;
 
-    protected function setUp(): void
+    public static function invalidDataProvider(): array
     {
-        parent::setUp();
-        $this->request = new UpdatePlaceRequest();
+        return ['missing name' => [['location_name' => 'Updated Location', 'category' => 'Updated Category', 'points' => '{"type":"Point"}',], ['name']], 'missing location_name' => [['name' => 'Updated Place', 'category' => 'Updated Category', 'points' => '{"type":"Point"}',], ['location_name']], 'missing category' => [['name' => 'Updated Place', 'location_name' => 'Updated Location', 'points' => '{"type":"Point"}',], ['category']], 'missing points' => [['name' => 'Updated Place', 'location_name' => 'Updated Location', 'category' => 'Updated Category',], ['points']], 'invalid points json' => [['name' => 'Updated Place', 'location_name' => 'Updated Location', 'category' => 'Updated Category', 'points' => 'invalid-json',], ['points']], 'non-string name' => [['name' => 123, 'location_name' => 'Updated Location', 'category' => 'Updated Category', 'points' => '{"type":"Point"}',], ['name']], 'non-string location_name' => [['name' => 'Updated Place', 'location_name' => 123, 'category' => 'Updated Category', 'points' => '{"type":"Point"}',], ['location_name']], 'non-string category' => [['name' => 'Updated Place', 'location_name' => 'Updated Location', 'category' => 123, 'points' => '{"type":"Point"}',], ['category']], 'empty data' => [[], ['name', 'location_name', 'category', 'points']],];
     }
 
     #[Test]
@@ -38,99 +37,9 @@ class UpdatePlaceRequestTest extends TestCase
     #[Test]
     public function it_validates_valid_data(): void
     {
-        $validator = Validator::make([
-            'name' => 'Updated Place',
-            'location_name' => 'Updated Location',
-            'category' => 'Updated Category',
-            'points' => json_encode([
-                'type' => 'Point',
-                'coordinates' => [
-                    'lat' => 2,
-                    'lon' => 2,
-                ],
-                'place_id' => 1,
-            ]),
-        ], $this->request->rules());
+        $validator = Validator::make(['name' => 'Updated Place', 'location_name' => 'Updated Location', 'category' => 'Updated Category', 'points' => json_encode(['type' => 'Point', 'coordinates' => ['lat' => 2, 'lon' => 2,], 'place_id' => 1,]),], $this->request->rules());
 
         $this->assertTrue($validator->passes());
-    }
-
-    public static function invalidDataProvider(): array
-    {
-        return [
-            'missing name' => [
-                [
-                    'location_name' => 'Updated Location',
-                    'category' => 'Updated Category',
-                    'points' => '{"type":"Point"}',
-                ],
-                ['name']
-            ],
-            'missing location_name' => [
-                [
-                    'name' => 'Updated Place',
-                    'category' => 'Updated Category',
-                    'points' => '{"type":"Point"}',
-                ],
-                ['location_name']
-            ],
-            'missing category' => [
-                [
-                    'name' => 'Updated Place',
-                    'location_name' => 'Updated Location',
-                    'points' => '{"type":"Point"}',
-                ],
-                ['category']
-            ],
-            'missing points' => [
-                [
-                    'name' => 'Updated Place',
-                    'location_name' => 'Updated Location',
-                    'category' => 'Updated Category',
-                ],
-                ['points']
-            ],
-            'invalid points json' => [
-                [
-                    'name' => 'Updated Place',
-                    'location_name' => 'Updated Location',
-                    'category' => 'Updated Category',
-                    'points' => 'invalid-json',
-                ],
-                ['points']
-            ],
-            'non-string name' => [
-                [
-                    'name' => 123,
-                    'location_name' => 'Updated Location',
-                    'category' => 'Updated Category',
-                    'points' => '{"type":"Point"}',
-                ],
-                ['name']
-            ],
-            'non-string location_name' => [
-                [
-                    'name' => 'Updated Place',
-                    'location_name' => 123,
-                    'category' => 'Updated Category',
-                    'points' => '{"type":"Point"}',
-                ],
-                ['location_name']
-            ],
-            'non-string category' => [
-                [
-                    'name' => 'Updated Place',
-                    'location_name' => 'Updated Location',
-                    'category' => 123,
-                    'points' => '{"type":"Point"}',
-                ],
-                ['category']
-            ],
-            'empty data' => [
-                [],
-                ['name', 'location_name', 'category', 'points']
-            ],
-        ];
     }
 
     #[Test]
@@ -146,34 +55,24 @@ class UpdatePlaceRequestTest extends TestCase
     #[Test]
     public function it_handles_empty_strings(): void
     {
-        $validator = Validator::make([
-            'name' => '',
-            'location_name' => '',
-            'category' => '',
-            'points' => '',
-        ], $this->request->rules());
+        $validator = Validator::make(['name' => '', 'location_name' => '', 'category' => '', 'points' => '',], $this->request->rules());
 
         $this->assertFalse($validator->passes());
-        $this->assertEquals(
-            ['name', 'location_name', 'category', 'points'],
-            array_keys($validator->errors()->messages())
-        );
+        $this->assertEquals(['name', 'location_name', 'category', 'points'], array_keys($validator->errors()->messages()));
     }
 
     #[Test]
     public function it_handles_null_values(): void
     {
-        $validator = Validator::make([
-            'name' => null,
-            'location_name' => null,
-            'category' => null,
-            'points' => null,
-        ], $this->request->rules());
+        $validator = Validator::make(['name' => null, 'location_name' => null, 'category' => null, 'points' => null,], $this->request->rules());
 
         $this->assertFalse($validator->passes());
-        $this->assertEquals(
-            ['name', 'location_name', 'category', 'points'],
-            array_keys($validator->errors()->messages())
-        );
+        $this->assertEquals(['name', 'location_name', 'category', 'points'], array_keys($validator->errors()->messages()));
+    }
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+        $this->request = new UpdatePlaceRequest();
     }
 }

@@ -2,28 +2,26 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Builder;
 
 class Place extends Model
 {
     use HasFactory;
 
-    protected $table = 'places';
-
-    protected $fillable = ['name', 'location_name', 'category', 'points'];
-
     public $timestamps = false;
-
+    protected $columns = ['id', 'name', 'location_name', 'category', 'points'];
     public $casts = ['points' => 'array'];
+    protected $table = 'places';
+    protected $fillable = ['name', 'location_name', 'category', 'points'];
 
     /**
      * Scope a query to select columns.
      */
     public function scopeSelectColumns(Builder $query): void
     {
-        $query->select(['id', 'name', 'location_name', 'category', 'points']);
+        $query->select($this->columns);
     }
 
     /**
@@ -31,6 +29,6 @@ class Place extends Model
      */
     public function scopeOrderById(Builder $query): void
     {
-        $query->orderBy('id', 'asc');
+        $query->orderBy('id');
     }
 }

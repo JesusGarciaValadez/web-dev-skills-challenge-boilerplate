@@ -4,8 +4,9 @@ namespace Tests\Unit\App\Exceptions\Place;
 
 use App\Exceptions\Place\PlaceException;
 use App\Exceptions\Place\PlaceNotSavedException;
-use PHPUnit\Framework\TestCase;
+use Exception;
 use PHPUnit\Framework\Attributes\Test;
+use PHPUnit\Framework\TestCase;
 
 class PlaceNotSavedExceptionTest extends TestCase
 {
@@ -57,7 +58,7 @@ class PlaceNotSavedExceptionTest extends TestCase
     #[Test]
     public function it_preserves_previous_exception(): void
     {
-        $previous = new \Exception('Previous error');
+        $previous = new Exception('Previous error');
         $exception = new PlaceNotSavedException('Custom message', 0, $previous);
         $this->assertSame($previous, $exception->getPrevious());
     }

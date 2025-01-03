@@ -30,22 +30,25 @@ class PlacesTest extends TestCase
                     'lon' => 1,
                 ],
                 'place_id' => 1234567890,
-            ],
-        ]);
-
-        $this->assertDatabaseHas('places', [
-            'name' => 'Test Place',
-            'location_name' => 'Test Location',
-            'category' => 'Test Category',
-            'points' => json_encode([
-                'type' => 'Point',
-                'coordinates' => [
-                    'lat' => 1,
-                    'lon' => 1,
                 ],
-                'place_id' => 1234567890,
-            ], JSON_THROW_ON_ERROR),
-        ]);
+            ]);
+
+        $this->assertDatabaseHas(
+            'places',
+            [
+                'name' => 'Test Place',
+                'location_name' => 'Test Location',
+                'category' => 'Test Category',
+                'points' => json_encode([
+                    'type' => 'Point',
+                    'coordinates' => [
+                        'lat' => 1,
+                        'lon' => 1,
+                    ],
+                    'place_id' => 1234567890,
+                ],
+                    JSON_THROW_ON_ERROR),
+            ]);
     }
 
     #[Test]

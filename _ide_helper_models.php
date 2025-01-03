@@ -19,7 +19,7 @@ namespace App\Models{
  * @property string $name
  * @property string $location_name
  * @property string $category
- * @property array $point
+ * @property array<array-key, mixed> $points
  * @method static \Database\Factories\PlaceFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Place newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Place newQuery()
@@ -30,7 +30,7 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Place whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Place whereLocationName($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Place whereName($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|Place wherePoint($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Place wherePoints($value)
  */
 	class Place extends \Eloquent {}
 }

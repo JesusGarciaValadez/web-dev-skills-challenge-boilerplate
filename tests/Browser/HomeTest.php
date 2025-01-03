@@ -5,11 +5,13 @@ namespace Tests\Browser;
 //use Illuminate\Foundation\Testing\DatabaseTruncation;
 use Laravel\Dusk\Browser;
 use Tests\DuskTestCase;
+use Throwable;
 
 class HomeTest extends DuskTestCase
 {
     /**
      * Test the first loaded application flow.
+     * @throws Throwable
      */
     public function test_loading_map(): void
     {
@@ -18,15 +20,10 @@ class HomeTest extends DuskTestCase
                 ->assertDontSee('Loading application...')
                 ->assertSeeIn('@name', 'Jesus Garcia Valadez')
                 ->assertSeeIn('@title', 'Geophy Skills Challenge')
-
                 ->assertSeeIn('@places-of-interest-search-label', 'Places of interest search')
                 ->assertPresent('#places')
                 ->assertInputPresent('places')
-                ->assertAttribute(
-                    '@places-of-interest-search-input',
-                    'placeholder',
-                    'Provide a location name (eg. Amsterdam)'
-                )
+                ->assertAttribute('@places-of-interest-search-input', 'placeholder', 'Provide a location name (eg. Amsterdam)')
 
                 // Verify map container exists
                 ->assertPresent('#map')
@@ -42,13 +39,13 @@ class HomeTest extends DuskTestCase
 
                 // Verify footer content
                 ->assertSeeIn('@copyright-one', '© 2024 Jesus Garcia Valadez, Inc.')
-                ->assertSeeIn('@copyright-two', 'All rights reserved.')
-            ;
+                ->assertSeeIn('@copyright-two', 'All rights reserved.');
         });
     }
 
     /**
      * Test the main application flow.
+     * @throws Throwable
      */
     public function test_happy_path(): void
     {
@@ -57,15 +54,10 @@ class HomeTest extends DuskTestCase
                 ->assertDontSee('Loading application...')
                 ->assertSeeIn('@name', 'Jesus Garcia Valadez')
                 ->assertSeeIn('@title', 'Geophy Skills Challenge')
-
                 ->assertSeeIn('@places-of-interest-search-label', 'Places of interest search')
                 ->assertPresent('#places')
                 ->assertInputPresent('places')
-                ->assertAttribute(
-                    '@places-of-interest-search-input',
-                    'placeholder',
-                    'Provide a location name (eg. Amsterdam)'
-                )
+                ->assertAttribute('@places-of-interest-search-input', 'placeholder', 'Provide a location name (eg. Amsterdam)')
 
                 // Verify map container exists
                 ->assertPresent('#map')
@@ -97,8 +89,7 @@ class HomeTest extends DuskTestCase
 
                 // Verify footer content
                 ->assertSeeIn('@copyright-one', '© 2024 Jesus Garcia Valadez, Inc.')
-                ->assertSeeIn('@copyright-two', 'All rights reserved.')
-            ;
+                ->assertSeeIn('@copyright-two', 'All rights reserved.');
         });
     }
 }

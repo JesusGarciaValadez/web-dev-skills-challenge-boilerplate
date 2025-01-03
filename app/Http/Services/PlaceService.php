@@ -2,8 +2,8 @@
 
 namespace App\Http\Services;
 
-use App\Models\Place;
 use App\Http\Repositories\PlaceRepositoryInterface;
+use App\Models\Place;
 use Exception;
 use Illuminate\Database\Eloquent\Collection;
 use RuntimeException;

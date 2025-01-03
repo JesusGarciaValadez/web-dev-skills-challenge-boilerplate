@@ -4,47 +4,13 @@ namespace Tests\Feature;
 
 use App\Models\Place;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Tests\TestCase;
+use JsonException;
 use PHPUnit\Framework\Attributes\Test;
+use Tests\TestCase;
 
 class HomeFeatureTest extends TestCase
 {
     use RefreshDatabase;
-
-    protected function setUp(): void
-    {
-        parent::setUp();
-
-        // Create some test places
-        Place::factory()->createMany([
-            [
-                'name' => 'Test Place 1',
-                'location_name' => 'Test Location 1',
-                'category' => 'tourism.sights',
-                'points' => [
-                    'type' => 'Point',
-                    'coordinates' => [
-                        'lat' => 52.3730796,
-                        'lon' => 4.8924534,
-                    ],
-                    'place_id' => 'test-id-1',
-                ],
-            ],
-            [
-                'name' => 'Test Place 2',
-                'location_name' => 'Test Location 2',
-                'category' => 'leisure.park',
-                'points' => [
-                    'type' => 'Point',
-                    'coordinates' => [
-                        'lat' => 52.3680,
-                        'lon' => 4.9036,
-                    ],
-                    'place_id' => 'test-id-2',
-                ],
-            ],
-        ]);
-    }
 
     #[Test]
     public function it_returns_success_response(): void
@@ -135,14 +101,13 @@ class HomeFeatureTest extends TestCase
 
         $response = $this->getJson('/api/places');
 
-        $response->assertStatus(200)
-            ->assertJson([]);
+        $response->assertStatus(200)->assertJson([]);
     }
 
     #[Test]
     public function it_validates_place_creation(): void
     {
-        $response = $this->postJson('/api/places', []);
+        $response = $this->postJson('/api/places');
 
         $response->assertStatus(422)
             ->assertJsonValidationErrors([
@@ -153,22 +118,13 @@ class HomeFeatureTest extends TestCase
             ]);
     }
 
+    /**
+     * @throws JsonException
+     */
     #[Test]
     public function it_creates_place_successfully(): void
     {
-        $placeData = [
-            'name' => 'New Test Place',
-            'location_name' => 'New Test Location',
-            'category' => 'tourism.museum',
-            'points' => json_encode([
-                'type' => 'Point',
-                'coordinates' => [
-                    'lat' => 52.3680,
-                    'lon' => 4.9036,
-                ],
-                'place_id' => 'new-test-id',
-            ]),
-        ];
+        $placeData = ['name' => 'New Test Place', 'location_name' => 'New Test Location', 'category' => 'tourism.museum', 'points' => json_encode(['type' => 'Point', 'coordinates' => ['lat' => 52.3680, 'lon' => 4.9036,], 'place_id' => 'new-test-id',], JSON_THROW_ON_ERROR),];
 
         $response = $this->postJson('/api/places', $placeData);
 
@@ -179,10 +135,47 @@ class HomeFeatureTest extends TestCase
                 'category' => 'tourism.museum',
             ]);
 
-        $this->assertDatabaseHas('places', [
-            'name' => 'New Test Place',
-            'location_name' => 'New Test Location',
-            'category' => 'tourism.museum',
+        $this->assertDatabaseHas(
+            'places',
+            [
+                'name' => 'New Test Place',
+                'location_name' => 'New Test Location',
+                'category' => 'tourism.museum',
+            ]);
+    }
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        // Create some test places
+        Place::factory()->createMany([
+            [
+                'name' => 'Test Place 1',
+                'location_name' => 'Test Location 1',
+                'category' => 'tourism.sights',
+                'points' => [
+                    'type' => 'Point',
+                    'coordinates' => [
+                        'lat' => 52.3730796,
+                        'lon' => 4.8924534,
+                    ],
+                    'place_id' => 'test-id-1',
+                ],
+            ],
+            [
+                'name' => 'Test Place 2',
+                'location_name' => 'Test Location 2',
+                'category' => 'leisure.park',
+                'points' => [
+                    'type' => 'Point',
+                    'coordinates' => [
+                        'lat' => 52.3680,
+                        'lon' => 4.9036,
+                    ],
+                    'place_id' => 'test-id-2',
+                ],
+            ],
         ]);
     }
 }

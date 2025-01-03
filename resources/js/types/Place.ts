@@ -1,7 +1,7 @@
 interface Place {
     name: string,
     location_name: string,
-    category: string,
+    category: Array<string> | string,
     points: {
         type: string,
         coordinates: {

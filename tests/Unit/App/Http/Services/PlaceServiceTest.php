@@ -2,17 +2,15 @@
 
 namespace Tests\Unit\App\Http\Services;
 
-use Exception;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use JsonException;
-use PHPUnit\Framework\Attributes\Test;
-use Tests\TestCase;
-use App\Models\Place;
-use App\Http\Services\PlaceService;
 use App\Http\Repositories\PlaceRepositoryInterface;
+use App\Http\Services\PlaceService;
+use App\Models\Place;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Mockery;
+use PHPUnit\Framework\Attributes\Test;
 use RuntimeException;
+use Tests\TestCase;
 
 class PlaceServiceTest extends TestCase
 {
@@ -32,15 +30,9 @@ class PlaceServiceTest extends TestCase
     #[Test]
     public function it_shows_up_to_ten_places_ordered_by_id(): void
     {
-        $places = new Collection([
-            Place::factory()->make(['id' => 1]),
-            Place::factory()->make(['id' => 2]),
-            Place::factory()->make(['id' => 3]),
-        ]);
+        $places = new Collection([Place::factory()->make(['id' => 1]), Place::factory()->make(['id' => 2]), Place::factory()->make(['id' => 3]),]);
 
-        $this->placeRepository->shouldReceive('all')
-            ->once()
-            ->andReturn($places);
+        $this->placeRepository->shouldReceive('all')->once()->andReturn($places);
 
         $result = $this->placeService->all();
 
@@ -52,27 +44,12 @@ class PlaceServiceTest extends TestCase
     #[Test]
     public function it_saves_a_place(): void
     {
-        $data = [
-            'name' => 'Test Place',
-            'location_name' => 'Test Location',
-            'category' => 'Test Category',
-            'points' => [
-                'type' => 'Point',
-                'coordinates' => [
-                    'lat' => 2,
-                    'lon' => 2,
-                ],
-                'place_id' => 1,
-            ],
-        ];
+        $data = ['name' => 'Test Place', 'location_name' => 'Test Location', 'category' => 'Test Category', 'points' => ['type' => 'Point', 'coordinates' => ['lat' => 2, 'lon' => 2,], 'place_id' => 1,],];
 
         $place = Place::factory()->make($data);
         $place->exists = true;
 
-        $this->placeRepository->shouldReceive('save')
-            ->once()
-            ->with($data)
-            ->andReturn($place);
+        $this->placeRepository->shouldReceive('save')->once()->with($data)->andReturn($place);
 
         $result = $this->placeService->save($data);
 
@@ -84,27 +61,12 @@ class PlaceServiceTest extends TestCase
     public function it_updates_a_place(): void
     {
         $place = Place::factory()->make();
-        $data = [
-            'name' => 'Updated Place',
-            'location_name' => 'Updated Location',
-            'category' => 'Updated Category',
-            'points' => [
-                'type' => 'Point',
-                'coordinates' => [
-                    'lat' => 2,
-                    'lon' => 2,
-                ],
-                'place_id' => 1,
-            ],
-        ];
+        $data = ['name' => 'Updated Place', 'location_name' => 'Updated Location', 'category' => 'Updated Category', 'points' => ['type' => 'Point', 'coordinates' => ['lat' => 2, 'lon' => 2,], 'place_id' => 1,],];
 
         $updatedPlace = Place::factory()->make($data);
         $updatedPlace->wasChanged = true;
 
-        $this->placeRepository->shouldReceive('update')
-            ->once()
-            ->with($data, $place)
-            ->andReturn($updatedPlace);
+        $this->placeRepository->shouldReceive('update')->once()->with($data, $place)->andReturn($updatedPlace);
 
         $result = $this->placeService->update($data, $place);
 
@@ -118,10 +80,7 @@ class PlaceServiceTest extends TestCase
         $deletedPlace = Place::factory()->make();
         $deletedPlace->exists = false;
 
-        $this->placeRepository->shouldReceive('delete')
-            ->once()
-            ->with($place)
-            ->andReturn($deletedPlace);
+        $this->placeRepository->shouldReceive('delete')->once()->with($place)->andReturn($deletedPlace);
 
         $result = $this->placeService->delete($place);
 
@@ -131,9 +90,7 @@ class PlaceServiceTest extends TestCase
     #[Test]
     public function it_handles_repository_exceptions(): void
     {
-        $this->placeRepository->shouldReceive('all')
-            ->once()
-            ->andThrow(new RuntimeException('Database error'));
+        $this->placeRepository->shouldReceive('all')->once()->andThrow(new RuntimeException('Database error'));
 
         $this->expectException(RuntimeException::class);
         $this->expectExceptionMessage('Database error');

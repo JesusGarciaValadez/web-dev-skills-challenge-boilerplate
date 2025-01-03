@@ -1,5 +1,8 @@
 'use strict';
 
+/**
+ *
+ */
 const useApi = async (url: string, method: string) => {
     if (!url) {
         return []
@@ -15,12 +18,12 @@ const useApi = async (url: string, method: string) => {
         // Handle both absolute and relative URLs
         const fullUrl = url.startsWith('http') ? url : `${window.location.origin}${url}`
         new URL(fullUrl);
-        
+
         const response = await fetch(
             fullUrl,
             requestOptions
         )
-        
+
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }

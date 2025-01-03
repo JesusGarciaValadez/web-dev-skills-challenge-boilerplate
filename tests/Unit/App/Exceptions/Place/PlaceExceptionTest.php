@@ -3,16 +3,18 @@
 namespace Tests\Unit\App\Exceptions\Place;
 
 use App\Exceptions\Place\PlaceException;
-use PHPUnit\Framework\TestCase;
 use PHPUnit\Framework\Attributes\Test;
+use PHPUnit\Framework\TestCase;
+use RuntimeException;
 
 class PlaceExceptionTest extends TestCase
 {
     #[Test]
     public function it_extends_runtime_exception(): void
     {
-        $exception = new class extends PlaceException {};
-        $this->assertInstanceOf(\RuntimeException::class, $exception);
+        $exception = new class extends PlaceException {
+        };
+        $this->assertInstanceOf(RuntimeException::class, $exception);
     }
 
     #[Test]

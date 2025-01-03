@@ -2,14 +2,12 @@
 
 namespace Tests\Unit\App\Http\Repositories;
 
-use Exception;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use JsonException;
-use PHPUnit\Framework\Attributes\Test;
-use Tests\TestCase;
-use App\Models\Place;
 use App\Http\Repositories\PlaceRepository;
+use App\Models\Place;
+use Illuminate\Foundation\Testing\RefreshDatabase;
+use PHPUnit\Framework\Attributes\Test;
 use RuntimeException;
+use Tests\TestCase;
 
 class PlaceRepositoryTest extends TestCase
 {
@@ -39,33 +37,9 @@ class PlaceRepositoryTest extends TestCase
     #[Test]
     public function it_saves_a_place_to_database(): void
     {
-        $place = $this->placeRepository->save([
-            'name' => 'Test Place',
-            'location_name' => 'Test Location',
-            'category' => 'Test Category',
-            'points' => [
-                'type' => 'Point',
-                'coordinates' => [
-                    'lat' => 2,
-                    'lon' => 2,
-                ],
-                'place_id' => 1,
-            ],
-        ]);
+        $place = $this->placeRepository->save(['name' => 'Test Place', 'location_name' => 'Test Location', 'category' => 'Test Category', 'points' => ['type' => 'Point', 'coordinates' => ['lat' => 2, 'lon' => 2,], 'place_id' => 1,],]);
 
-        $this->assertDatabaseHas('places', [
-            'name' => 'Test Place',
-            'location_name' => 'Test Location',
-            'category' => 'Test Category',
-            'points' => json_encode([
-                'type' => 'Point',
-                'coordinates' => [
-                    'lat' => 2,
-                    'lon' => 2,
-                ],
-                'place_id' => 1,
-            ], JSON_THROW_ON_ERROR),
-        ]);
+        $this->assertDatabaseHas('places', ['name' => 'Test Place', 'location_name' => 'Test Location', 'category' => 'Test Category', 'points' => json_encode(['type' => 'Point', 'coordinates' => ['lat' => 2, 'lon' => 2,], 'place_id' => 1,], JSON_THROW_ON_ERROR),]);
         $this->assertTrue($place->exists);
     }
 
@@ -73,33 +47,9 @@ class PlaceRepositoryTest extends TestCase
     public function it_updates_a_place_in_database(): void
     {
         $place = Place::factory()->create();
-        $updatedPlace = $this->placeRepository->update([
-            'name' => 'Updated Place',
-            'location_name' => 'Updated Location',
-            'category' => 'Updated Category',
-            'points' => [
-                'type' => 'Point',
-                'coordinates' => [
-                    'lat' => 2,
-                    'lon' => 2,
-                ],
-                'place_id' => 1,
-            ],
-        ], $place);
+        $updatedPlace = $this->placeRepository->update(['name' => 'Updated Place', 'location_name' => 'Updated Location', 'category' => 'Updated Category', 'points' => ['type' => 'Point', 'coordinates' => ['lat' => 2, 'lon' => 2,], 'place_id' => 1,],], $place);
 
-        $this->assertDatabaseHas('places', [
-            'name' => 'Updated Place',
-            'location_name' => 'Updated Location',
-            'category' => 'Updated Category',
-            'points' => json_encode([
-                'type' => 'Point',
-                'coordinates' => [
-                    'lat' => 2,
-                    'lon' => 2,
-                ],
-                'place_id' => 1,
-            ]),
-        ]);
+        $this->assertDatabaseHas('places', ['name' => 'Updated Place', 'location_name' => 'Updated Location', 'category' => 'Updated Category', 'points' => json_encode(['type' => 'Point', 'coordinates' => ['lat' => 2, 'lon' => 2,], 'place_id' => 1,]),]);
         $this->assertTrue($updatedPlace->wasChanged());
     }
 
@@ -130,12 +80,7 @@ class PlaceRepositoryTest extends TestCase
         $this->expectException(RuntimeException::class);
         $this->expectExceptionMessage('Place not updated');
 
-        $this->placeRepository->update([
-            'name' => $place->name,
-            'location_name' => $place->location_name,
-            'category' => $place->category,
-            'points' => $place->points,
-        ], $place);
+        $this->placeRepository->update(['name' => $place->name, 'location_name' => $place->location_name, 'category' => $place->category, 'points' => $place->points,], $place);
     }
 
     #[Test]

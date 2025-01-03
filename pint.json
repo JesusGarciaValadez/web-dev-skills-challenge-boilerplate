@@ -1,0 +1,21 @@
+{
+    "preset": "laravel",
+    "exclude": [
+        "vendor",
+        "storage",
+        "node_modules"
+    ],
+    "paths": [
+        "app",
+        "config",
+        "database",
+        "routes",
+        "tests"
+    ],
+    "rules": {
+        "braces": {
+            "allow_single_line_closure": true,
+            "array_indentation": true
+        }
+    }
+}

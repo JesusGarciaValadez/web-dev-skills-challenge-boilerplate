@@ -29,8 +29,6 @@ class HomePage extends Page
      */
     public function elements(): array
     {
-        return [
-            '@element' => '#selector',
-        ];
+        return ['@element' => '#selector',];
     }
 }
