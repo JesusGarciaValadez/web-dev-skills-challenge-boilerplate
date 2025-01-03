@@ -1,7 +1,7 @@
 'use strict';
 
 const useDebouncer = (callback: Function, delay: number) => {
-    let timeoutId: NodeJS.Timeout;
+    let timeoutId: ReturnType<typeof setTimeout>;
 
     // Handle invalid delay values
     const validDelay = typeof delay === 'number' && delay > 0 ? delay : 0;

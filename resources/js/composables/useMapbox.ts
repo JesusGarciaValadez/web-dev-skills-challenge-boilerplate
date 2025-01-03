@@ -1,6 +1,8 @@
+/// <reference types="vite/client" />
+
 'use strict';
 
-import { toRaw, isRef } from 'vue'
+import { toRaw } from 'vue'
 import mapboxgl, {
     GeolocateControlOptions,
     MapOptions,
@@ -96,8 +98,8 @@ const createMap = () => new mapboxgl.Map(mapOptions)
 const createGeolocaleControl = () => new mapboxgl.GeolocateControl(geolocateControlOptions)
 const createPopup = (place: Place) => {
     const category = Array.isArray(toRaw(place.category))
-        ? place.category[0]?.split('.')[0] || ''
-        : place.category?.split('.')[0] || ''
+        ? (typeof place.category[0] === 'string' ? place.category[0].split('.')[0] : '')
+        : (typeof place.category === 'string' ? place.category.split('.')[0] : '')
     return new mapboxgl.Popup(popupOptions)
         .setHTML(
             `<h3>${place.name}</h3>
@@ -109,8 +111,8 @@ const createPopup = (place: Place) => {
 // https://docs.mapbox.com/mapbox-gl-js/example/add-a-marker/
 const createMarker = (place: Place) => {
     const category = Array.isArray(toRaw(place.category))
-        ? place.category[0]?.split('.')[0] || ''
-        : place.category?.split('.')[0] || ''
+        ? (typeof place.category[0] === 'string' ? place.category[0].split('.')[0] : '')
+        : (typeof place.category === 'string' ? place.category.split('.')[0] : '')
     const color = categoryColorMap[category] || 'gray' // fallback color
 
     return new mapboxgl.Marker({ ...markerOptions, color })

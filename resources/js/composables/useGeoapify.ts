@@ -1,3 +1,5 @@
+/// <reference types="vite/client" />
+
 'use strict';
 
 const categoryMap = [
@@ -44,7 +46,7 @@ const allCategories = categoryMap.join(',')
 
 const useGeocoding = async (place: string) => {
     const API_KEY = import.meta.env.VITE_GEOAPIFY_ACCESS_TOKEN;
-    
+
     if (!place) {
         return { features: [] }
     }
@@ -58,11 +60,11 @@ const useGeocoding = async (place: string) => {
         const response = await fetch(
             `https://api.geoapify.com/v1/geocode/search?${params.toString()}`
         )
-        
+
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`)
         }
-        
+
         return await response.json()
     } catch (error) {
         console.error('Error:', error)
@@ -72,7 +74,7 @@ const useGeocoding = async (place: string) => {
 
 const usePlaces = async (place_id: string) => {
     const API_KEY = import.meta.env.VITE_GEOAPIFY_ACCESS_TOKEN;
-    
+
     if (!place_id) {
         return []
     }

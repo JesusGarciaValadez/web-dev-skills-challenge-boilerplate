@@ -53,5 +53,11 @@ To run tests:
 php artisan dusk --browse
 ```
 
+## Frontend testing
+To run tests:
+```
+npm run test
+```
+
 ## Troubleshooting
 - If you encounter an error with the `php artisan dusk --browse` command, try running `./vendor/bin/sail dusk:install` first, and then run `php artisan dusk --browse` again.
